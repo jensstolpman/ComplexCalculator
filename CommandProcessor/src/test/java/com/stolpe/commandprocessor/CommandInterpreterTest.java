@@ -1,9 +1,9 @@
 package com.stolpe.commandprocessor;
 
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import com.stolpe.commandprocessor.Command;
+import com.stolpe.commandprocessor.CommandInterpreter;
+import org.junit.*;
 import org.junit.jupiter.api.Assertions;
 
 public class CommandInterpreterTest {
@@ -14,7 +14,7 @@ public class CommandInterpreterTest {
     }
     @Before
     public void setUp() {
-        this.commandInterpreter = new CommandInterpreter();
+        this.commandInterpreter = CommandInterpreter.getInstance();
         Assertions.assertNotNull(this.commandInterpreter.getCalculator());
     }
 
@@ -27,6 +27,7 @@ public class CommandInterpreterTest {
         Command command = new Command();
         command.setValue("4-5i");
         command.setCommand("enter");
+        command.setNewEnter(0);
         Command result = commandInterpreter.processCommand(command);
         Assertions.assertEquals(result.getValue(), command.getValue());
     }

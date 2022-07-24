@@ -1,12 +1,24 @@
 package com.stolpe.calculatorcore;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 public class CalculatorCore {
     private final Stack<Complex> stack;
 
+    public List<String> getStack(){
+        ArrayList<String> result = new ArrayList<>(stack.size());
+        for (Complex complex : stack) {
+            result.add(complex.toString());
+        }
+        return result;
+    }
+
     public CalculatorCore() {
         this.stack = new Stack<>();
+        stack.push(new Complex(0,0));
+        stack.push(new Complex(0,0));
     }
 
     private FunctionArguments getTwoFunctionArguments() {
@@ -23,7 +35,8 @@ public class CalculatorCore {
      * @param number complex number
      */
     public void enter(Complex number){
-        stack.push(number);
+        if (number!=null)
+            stack.push(number);
     }
 
     /**
@@ -72,7 +85,7 @@ public class CalculatorCore {
      * @return complex number
      */
     public Complex getMantissa(){
-        return stack.peek();
+        return new Complex(stack.peek());
     }
 
     private void executeBinaryFunction(FunctionBinary command){
@@ -87,7 +100,7 @@ public class CalculatorCore {
     }
 
     @FunctionalInterface
-    interface FunctionSingle {
+    interface FunctionUnary {
         Complex execute(Complex a);
     }
 

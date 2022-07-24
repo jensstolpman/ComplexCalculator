@@ -1,11 +1,23 @@
 import com.stolpe.calculatorcore.CalculatorCore;
 import com.stolpe.calculatorcore.Complex;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CalculatorCoreTest {
+
+    static {
+        try {
+            String name = System.mapLibraryName("javagiac");
+            System.out.println("Loading giac java interface: "+name);
+            System.loadLibrary("javagiac");
+        } catch (UnsatisfiedLinkError e) {
+            System.err.println("Native code library failed to load. See the chapter on Dynamic Linking Problems in the SWIG Java documentation for help.\n" + e);
+        }
+    }
+
     private CalculatorCore calculatorCore;
     @org.junit.jupiter.api.BeforeEach
     public void setUp() {
@@ -58,7 +70,7 @@ class CalculatorCoreTest {
         Complex value = new Complex(5, 4);
         calculatorCore.enter(value);
         Complex result = calculatorCore.getMantissa();
-        Assertions.assertEquals(value,result);
+        assertEquals(value,result);
     }
 
     @Test
@@ -71,6 +83,9 @@ class CalculatorCoreTest {
             String compareString = s.replaceAll("\\s", "");
             assertEquals(result.toString(), compareString);
         }
+        List<String> stack = calculatorCore.getStack();
+        assertEquals(stack.size(),12);
+
     }
 
 }
