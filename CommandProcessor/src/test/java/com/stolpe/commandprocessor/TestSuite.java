@@ -6,8 +6,10 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 
 @Suite.SuiteClasses({
+        CalculatorProcessorTest.class,
         CommandInterpreterTest.class,
-        CommandTest.class
+        CommandTest.class,
+        CalculatorConfiguratorTest.class,
 })
 
 public class TestSuite {

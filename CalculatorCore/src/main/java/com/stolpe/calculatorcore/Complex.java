@@ -52,7 +52,7 @@ public class Complex {
     public Complex(String complexString){
         BigDecimal re1 = BigDecimal.ZERO;
         BigDecimal im1 = BigDecimal.ZERO;
-        if (complexString==null || complexString.equals("")){
+        if (complexString==null){
             throw new RuntimeException("No valid parameter.");
         }
         complexString = complexString.replaceAll("\\s",""); //strip all spaces
@@ -91,7 +91,7 @@ public class Complex {
                 result = format(re) + PLUS+ format(im)+ "i";
         return result;
     }
-
+/*
     // return abs/modulus/magnitude
     public double abs() {
         return Math.hypot(re.doubleValue(), im.doubleValue());
@@ -101,7 +101,7 @@ public class Complex {
     public double phase() {
         return Math.atan2(im.doubleValue(), re.doubleValue());
     }
-
+*/
     // return a new Complex object whose value is (this + b)
     public Complex plus(Complex b) {
         Complex result = binaryOperation(PLUS, this, b);
@@ -113,9 +113,6 @@ public class Complex {
         String aString = a.toString();
         String bString = b.toString();
         StringBuilder expression = new StringBuilder("(").append(aString).append(")").append(operation).append("(").append(bString).append(")");
-        //expression = new StringBuilder("evalc(").append(expression).append(')');
-        //expression = new StringBuilder("simplify(").append(expression).append(')');
-        //expression = new StringBuilder("evalf(").append(expression).append(')');
         try {
             String executed = Calculator.calculate(expression.toString());
             result = new Complex(executed);
@@ -136,7 +133,7 @@ public class Complex {
         Complex result = binaryOperation(TIMES, this, b);
         return result;
     }
-
+/*
     // return a new object whose value is (this * alpha)
     public Complex scale(double alpha) {
         return new Complex(alpha * re.doubleValue(), alpha * im.doubleValue());
@@ -152,10 +149,10 @@ public class Complex {
         double scale = re.doubleValue()*re.doubleValue() + im.doubleValue()*im.doubleValue();
         return new Complex(re.doubleValue() / scale, -im.doubleValue() / scale);
     }
-
+*/
     // return the real or imaginary part
-    public double re() { return re.doubleValue(); }
-    public double im() { return im.doubleValue(); }
+    //public double re() { return re.doubleValue(); }
+    //public double im() { return im.doubleValue(); }
 
     // return a / b
     public Complex divides(Complex b) {
@@ -164,6 +161,7 @@ public class Complex {
     }
 
     // return a new Complex object whose value is the complex exponential of this
+    /*
     public Complex exp() {
         return new Complex(Math.exp(re.doubleValue()) * Math.cos(im.doubleValue()), Math.exp(re.doubleValue()) * Math.sin(im.doubleValue()));
     }
@@ -197,8 +195,5 @@ public class Complex {
     public int hashCode() {
         return Objects.hash(re, im);
     }
-
-    // sample client for testing
-    public static void main(String[] args) {
-    }
+*/
 }

@@ -94,33 +94,24 @@ document.write(`
           background-color: #2f2f31;
     }
     #calculator .calculator-logs {
-      height: 80px;
-      display: flex;
-      position: relative;
-      overflow: hidden;
-      align-items: flex-end;
-      flex-direction: column;
-      justify-content: flex-end;
-    }
-    #calculator .calculator-logs:before {
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 48px;
-      content: '';
-      z-index: 5;
-      position: absolute;
-      background: linear-gradient(to bottom, #2f2f31, rgba(47, 47, 49, 0));
+        height: 10vh;
+        display: flex;
+        position: relative;
+        overflow: hidden;
+        align-items: flex-end;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 0.5vh;
     }
     #calculator .calculator-logs span {
-      color: #D4D4D2;
-      opacity: .75;
-      display: block;
-      font-size: .8rem;
-      text-align: right;
-      margin-top: .4rem;
-      line-height: 1;
-      font-weight: lighter;
+        color: #D4D4D2;
+        display: block;
+        font-size: 3vh;
+        text-align: right;
+        margin-top: 0.2vh;
+        line-height: 1;
+        font-weight: lighter;
+        padding-right: 0.8vh;
     }
     #calculator .calculator-input {
       color: #D4D4D2;
@@ -213,7 +204,7 @@ Vue.component('calculator', {
                this.calculate('enter')
             },
             getMantissa: function () {
-               var address = 'http://127.0.0.1:' + this.$root.port + '/Calculate';
+               var address = 'http://localhost:' + this.$root.port + '/Calculate';
                const headers = {
                    'Access-Control-Allow-Origin': address
                };
@@ -237,6 +228,7 @@ Vue.component('calculator', {
                Vue.axios.post(address, this.$data, { headers })
                 .then(response => {
                                         this.value = response.data.value;
+                                        this.stack = response.data.stack;
                                         this.newEnter = 1;
                                   }
                      )

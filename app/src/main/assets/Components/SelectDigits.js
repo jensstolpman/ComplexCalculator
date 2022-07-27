@@ -32,6 +32,8 @@ document.write(`
           background-color: #000000;
           border: none;
           height: 5vh;
+          padding: 0.4
+          h 1vh .6vh .3vh;
         }
 
         .custom-select .selected {

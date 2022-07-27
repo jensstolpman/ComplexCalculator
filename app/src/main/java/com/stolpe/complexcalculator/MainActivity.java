@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         WebView calcView = findViewById(R.id.Calculator);
-        String name = this.getApplication().getApplicationContext().getApplicationInfo().nativeLibraryDir;
+        //String name = this.getApplication().getApplicationContext().getApplicationInfo().nativeLibraryDir;
         configureCalcView(calcView);
         startJetty();
     }

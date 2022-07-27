@@ -72,14 +72,11 @@ public class CommandInterpreter {
         return mantissa.toString();
     }
 
-    private Complex invokeMethod(final String methodName, final CalculatorCore calculator, Complex value){
+    private Complex invokeMethod(final String methodName, final CalculatorCore calculator){
         Complex result = new Complex(0,0);
         Method method = calculatorCoreMethods.get(methodName);
         try {
-            if (value !=null)
-                method.invoke(calculator, value);
-            else
-                result = (Complex) method.invoke(calculator);
+            result = (Complex) method.invoke(calculator);
         } catch (Exception e) {
             System.err.print(e.getMessage());
             e.printStackTrace();
@@ -87,7 +84,7 @@ public class CommandInterpreter {
         return result;
     }
     private Complex getMantissa(CalculatorCore calculator) {
-        Complex result = invokeMethod(GET_MANTISSA, calculator, null);
+        Complex result = invokeMethod(GET_MANTISSA, calculator);
         return result;
     }
     private List<String> invokeCommand(Command command, CalculatorCore calculator) {

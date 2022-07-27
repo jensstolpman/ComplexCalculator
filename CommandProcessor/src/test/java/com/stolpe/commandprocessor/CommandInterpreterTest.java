@@ -1,8 +1,6 @@
 package com.stolpe.commandprocessor;
 
 
-import com.stolpe.commandprocessor.Command;
-import com.stolpe.commandprocessor.CommandInterpreter;
 import org.junit.*;
 import org.junit.jupiter.api.Assertions;
 

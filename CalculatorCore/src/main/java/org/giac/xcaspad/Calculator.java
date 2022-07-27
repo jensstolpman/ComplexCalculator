@@ -18,8 +18,13 @@ public class Calculator {
 
     static {
         try {
-            //String name = System.mapLibraryName("javagiac");
             System.loadLibrary("crystax");
+        } catch (Throwable e){
+            //do nothing. If crystax isn't loaded, but necessary, you will get an Exception while loading javagiac
+            //otherwise you will always get an error during unit tests
+            //for unit testing crystax isn't necessary, because it will load the .dll, not the .so
+        }
+        try {
             System.loadLibrary("javagiac");
         } catch (UnsatisfiedLinkError e) {
             System.err.println("Native code library failed to load.\n" + e);
@@ -30,7 +35,6 @@ public class Calculator {
     /*this function retrieves the computed result from a math expression*/
     public static String calculate(String input) {
         context ctx=new context();
-
         gen g = new gen(input,ctx);
         g = giac._evalc(g,ctx);
         g = giac._simplify(g,ctx);

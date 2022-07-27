@@ -15,10 +15,7 @@ public class CalculatorProcessor extends HttpServlet {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final CommandInterpreter commandInterpreter = CommandInterpreter.getInstance();
 
-    public void init() {
-    }
-
-    private class Mantissa {
+    public static class Mantissa {
 
         private String mantissa;
         private List<String> stack;

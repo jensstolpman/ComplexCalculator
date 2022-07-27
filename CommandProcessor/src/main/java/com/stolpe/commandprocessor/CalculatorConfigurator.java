@@ -14,9 +14,6 @@ public class CalculatorConfigurator extends HttpServlet{
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final CommandInterpreter commandInterpreter = CommandInterpreter.getInstance();
 
-    public void init() {
-    }
-
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         Config config = commandInterpreter.getConfig();
