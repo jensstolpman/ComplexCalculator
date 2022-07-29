@@ -9,10 +9,12 @@ import java.util.*;
 
 public class Complex {
     public static final String PLUS = "+";
-    public static final String IMAGINARY = "i";
     public static final String MINUS = "-";
     public static final String TIMES = "*";
     public static final String DIVIDE = "/";
+    public static final String IMAGINARY = "i";
+    public static final String EP = "ep";
+    public static final String EM = "em";
     private final BigDecimal re;   // the real part
     private final BigDecimal im;   // the imaginary part
     private MathContext mathContext = MathContext.UNLIMITED;
@@ -57,10 +59,16 @@ public class Complex {
         }
         complexString = complexString.replaceAll("\\s",""); //strip all spaces
         complexString = complexString.replaceAll("\\*",""); //strip all "*"
+        complexString = complexString.replaceAll("e\\+", EP); //strip all "*"
+        complexString = complexString.replaceAll("e\\-", EM); //strip all "*"
+        complexString = complexString.replaceAll("E\\+", EP); //strip all "*"
+        complexString = complexString.replaceAll("E\\-", EM); //strip all "*"
         String[] valueComponents = complexString.split("[+-]");
         List<String> componentList = new ArrayList<>(Arrays.asList(valueComponents));
         for (String component : componentList) {
             if (!component.equals("")) {
+                component = component.replaceAll(EP,"e+"); //strip all "*"
+                component = component.replaceAll(EM,"e-"); //strip all "*"
                 if (component.endsWith(IMAGINARY)) {
                     im1 = new BigDecimal(component.substring(0, component.length() - 1));
                     im1 = applySign(complexString, component, im1);
@@ -83,12 +91,12 @@ public class Complex {
         if (im.compareTo(BigDecimal.ZERO)==0)
             result = format(re) + "";
         if (im.compareTo(BigDecimal.ZERO)!=0 && re.compareTo(BigDecimal.ZERO)==0)
-            result = (format(im)) + "i";
+            result = (format(im)) + IMAGINARY;
         if (im.compareTo(BigDecimal.ZERO)!=0 && re.compareTo(BigDecimal.ZERO)!=0)
             if (im.signum()==-1)
-                result = format(re) + ""+ format(im)+ "i";
+                result = format(re) + ""+ format(im)+ IMAGINARY;
             else
-                result = format(re) + PLUS+ format(im)+ "i";
+                result = format(re) + PLUS+ format(im)+ IMAGINARY;
         return result;
     }
 /*

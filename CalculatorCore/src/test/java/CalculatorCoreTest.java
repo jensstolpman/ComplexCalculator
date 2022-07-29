@@ -2,6 +2,8 @@ import com.stolpe.calculatorcore.CalculatorCore;
 import com.stolpe.calculatorcore.Complex;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -86,6 +88,19 @@ class CalculatorCoreTest {
         List<String> stack = calculatorCore.getStack();
         assertEquals(stack.size(),12);
 
+    }
+
+    @Test
+    void setStackTest (){
+        String[] values = {"0", "-4i", "-5-4i", "-5", "5+4i", "4i", "5-4i", "5" ,"-4.345-5.335i"};
+        ArrayList<String> valueList = new ArrayList<>(values.length);
+        valueList.addAll(Arrays.asList(values));
+        calculatorCore.setStack(valueList);
+        List<String> stack = calculatorCore.getStack();
+        for (int i=0; i<values.length;i++) {
+            String s = values[i];
+            assertEquals(s, stack.get(i));
+        }
     }
 
 }

@@ -3,7 +3,9 @@ document.write(`
       <div id = "calculator">
           <calc-menu></calc-menu>
           <div class="calculator-logs">
-            <span v-for="cplx in stack">{{ cplx }}</span>
+            <span v-for="cplx in stack">
+                <span v-if="!isMantissa(cplx)">{{ cplx }}</span>
+            </span>
           </div>
 
           <input type="string" class="calculator-input" v-model="value" @keyup.enter="getResult()" readonly>
@@ -94,7 +96,7 @@ document.write(`
           background-color: #2f2f31;
     }
     #calculator .calculator-logs {
-        height: 10vh;
+        height: 10.2vh;
         display: flex;
         position: relative;
         overflow: hidden;
@@ -117,7 +119,7 @@ document.write(`
       color: #D4D4D2;
       width: 100%;
       border: none;
-      padding: .8rem;
+      padding: 0vh 1vh 0vh 1vh;
       display: block;
       font-size: 6vh;
       background: none;
@@ -178,9 +180,10 @@ Vue.component('calculator', {
                 newEnter: 1,
             }
         },
-        mounted: function(){
+        beforeMount: function(){
            this.getMantissa();
         },
+        stackCounter: 1,
         methods: {
             addExpression: function (e) {
                 if (this.newEnter==1){
@@ -193,6 +196,19 @@ Vue.component('calculator', {
                 var log = this.value;
                 this.value = eval(this.value);
                 this.logs.push(log + ("=" + this.value));
+            },
+            isMantissa: function (cplx) {
+                var result = 0;
+                var stackSize = this.stack.length;
+                if (this.stackCounter<stackSize){
+                    this.stackCounter++;
+                } else {
+                    if (this.newEnter==1) {
+                        result = 1;
+                    }
+                    this.stackCounter = 1;
+                }
+                return result;
             },
             clear: function () {
                 this.value = 0;
@@ -213,6 +229,7 @@ Vue.component('calculator', {
                                         this.value = response.data.mantissa;
                                         this.stack = response.data.stack;
                                         this.newEnter = 1;
+                                        this.stackCounter = 1;
                                   }
                      )
                 .catch(e => {

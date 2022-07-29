@@ -14,6 +14,12 @@ public class CalculatorCore {
         }
         return result;
     }
+    public void setStack(List<String> newStack){
+        stack.clear();
+        for (String value : newStack) {
+            stack.add(new Complex(value));
+        }
+    }
 
     public CalculatorCore() {
         this.stack = new Stack<>();
